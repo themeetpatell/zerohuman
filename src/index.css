@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: #080808;
+    color: #f0f0f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #2e2e2e;
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3dd9b3;
+  }
+}
+
+@layer components {
+  .zh-btn {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+           transition-all duration-200 cursor-pointer select-none;
+  }
+
+  .zh-btn-teal {
+    @apply zh-btn bg-zh-teal text-black hover:bg-opacity-90 active:scale-95;
+  }
+
+  .zh-btn-ghost {
+    @apply zh-btn bg-transparent border border-zh-border2 text-zh-muted
+           hover:border-zh-teal hover:text-zh-teal active:scale-95;
+  }
+
+  .zh-btn-dark {
+    @apply zh-btn bg-zh-card2 border border-zh-border text-zh-text
+           hover:border-zh-border2 active:scale-95;
+  }
+
+  .zh-card {
+    @apply bg-zh-card border border-zh-border rounded-2xl overflow-hidden;
+  }
+
+  .zh-input {
+    @apply bg-zh-card2 border border-zh-border rounded-xl px-4 py-3 text-zh-text
+           placeholder:text-zh-subtle text-sm outline-none
+           focus:border-zh-teal focus:ring-1 focus:ring-zh-teal/20
+           transition-all duration-200;
+  }
+}
+
+@layer utilities {
+  .text-gradient-teal {
+    background: linear-gradient(135deg, #3dd9b3 0%, #2ab89a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shimmer-overlay {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(61, 217, 179, 0.08) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: shimmer 2s linear infinite;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
