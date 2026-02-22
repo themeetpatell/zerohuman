@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { useProjectStore } from '@/store/projectStore'
 import { useAuthStore } from '@/store/authStore'
+import { useBillingStore } from '@/store/billingStore'
 import VideoCard from '@/components/creation/VideoCard'
 import SettingsModal from '@/components/creation/SettingsModal'
 import type { ChatMessage, VideoProject, AdConcept } from '@/types'
@@ -207,7 +208,8 @@ export default function CreationPage() {
   const recognitionRef = useRef<unknown>(null)
 
   const { messages, addMessage, updateMessage, isGenerating, setGenerating, addProject, settings } = useProjectStore()
-  const { user } = useAuthStore()
+  const { user, updateCredits } = useAuthStore()
+  const { checkAndBlockGeneration } = useBillingStore()
 
   const scrollToBottom = useCallback(() => {
     setTimeout(() => {
@@ -218,6 +220,12 @@ export default function CreationPage() {
   useEffect(() => { scrollToBottom() }, [messages, isTyping, scrollToBottom])
 
   const generateVideo = useCallback(async (prompt: string) => {
+    // Check credits before starting
+    if (checkAndBlockGeneration()) return
+
+    // Deduct credits for generation (10 credits per generation)
+    updateCredits(-10)
+
     // Add user message
     addMessage({ role: 'user', content: prompt })
     scrollToBottom()

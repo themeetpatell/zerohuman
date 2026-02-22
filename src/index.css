@@ -71,6 +71,17 @@
            focus:border-zh-teal focus:ring-1 focus:ring-zh-teal/20
            transition-all duration-200;
   }
+
+  .zh-settings-input {
+    @apply w-full bg-zh-bg border border-zh-border rounded-xl px-4 py-2.5 text-sm
+           text-zh-text placeholder:text-zh-subtle outline-none
+           focus:border-zh-teal focus:ring-1 focus:ring-zh-teal/20
+           transition-all duration-200;
+  }
+
+  .section-label {
+    @apply block text-[10px] font-bold uppercase tracking-widest text-zh-muted mb-2;
+  }
 }
 
 @layer utilities {
